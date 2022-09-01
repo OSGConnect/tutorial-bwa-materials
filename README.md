@@ -1,4 +1,4 @@
-[title]: - "High-Throughput BWA Read Mapping"
+[title]: - "2022 ACE Consortium Meeting High-Throughput BWA Read Mapping"
 [TOC]
 
 
@@ -77,24 +77,19 @@ Now that we have all items in our analysis ready, it is time to submit a single 
 
          # need to transfer bwa.tar.gz file, the reference
          # genome, and the trimmed fastq files
-         transfer_input_files = software/bwa.tar.gz, data/ref_genome/ecoli_rel606.fasta.gz, data/trimmed_fastq_small/SRR2584863_1.trim.sub.fastq, data/trimmed_fastq_small/SRR2584863_2.trim.sub.fastq
+         transfer_input_files = software/bwa.tar.gz, data/ref_genome/ecoli_rel606.fasta.gz, data/fastq/SRR2584863_1.trim.sub.fastq, data/fastq/SRR2584863_2.trim.sub.fastq
 
-         log         = TestJobOutput/bwa_test_job.log
-         output      = TestJobOutput/bwa_test_job.out
-         error       = TestJobOutput/bwa_test_job.error
+         log         = log/bwa_test_job.log
+         output      = errout/bwa_test_job.out
+         error       = errout/bwa_test_job.error
 
-         +JobDurationCategory = "Medium"
          request_cpus    = 1
          request_memory  = 2GB
          request_disk    = 1GB
-
-         should_transfer_files = YES
-         when_to_transfer_output = ON_EXIT
-         requirements = (OSGVO_OS_STRING == "RHEL 7")
-
+         
          queue 1
 
-You will notice that the .log, .out, and .error files will be saved to a folder called `TestJobOutput`. We need to create this folder using `mkdir TestJobOutput` before we submit our job. 
+You will notice that the .log, .out, and .error files will be saved to folders called `log` and `errout`. 
 
 We will call the script for this analysis `bwa-test.sh` and it should contain the following information: 
 
@@ -154,7 +149,7 @@ To use this option, we first need to create a file with just the sample names/ID
 We will save the sample names in a file called `samples.txt`:
 
          cd ~/tutorial-bwa
-         cd data/trimmed_fastq_small/
+         cd data/fastq/
          ls *.fastq | cut -f 1 -d '_' | uniq > samples.txt
          cd ~/tutorial-bwa
 
@@ -164,31 +159,21 @@ Now, we can create a new submit file called `bwa-alignment.sub` to queue a new j
          executable  = bwa-alignment.sh
          arguments   = $(sample)
 
-         transfer_input_files = software/bwa.tar.gz, data/ref_genome/ecoli_rel606.fasta.gz, data/trimmed_fastq_small/$(sample)_1.trim.sub.fastq, data/trimmed_fastq_small/$(sample)_2.trim.sub.fastq
+         transfer_input_files = software/bwa.tar.gz, data/ref_genome/ecoli_rel606.fasta.gz, data/fastq/$(sample)_1.trim.sub.fastq, data/fastq/$(sample)_2.trim.sub.fastq
          transfer_output_remaps = "$(sample).aligned.sam=results/$(sample).aligned.sam"
-
 
          log         = log/bwa_$(sample)_job.log
          output      = output/bwa_$(sample)_job.out
          error       = error/bwa_$(sample)_job.error
 
-         +JobDurationCategory = "Medium"
          request_cpus    = 1 
          request_memory  = 0.5GB
          request_disk    = 0.5GB
 
-         should_transfer_files = YES
-         when_to_transfer_output = ON_EXIT
-         requirements = (OSGVO_OS_STRING == "RHEL 7")
+         queue sample from data/fastq/samples.txt
 
-         queue sample from data/trimmed_fastq_small/samples.txt
+In addition to restructuring our submit file to queue a new job for each sample, it is also advantageous to have our standard output, log, and error files saved to dedicated folders called "log" and "errout" to help keep our output files organized.  Therefore, we need to make sure these folders exist in our /home directory prior to submitting our job. We will also create an additional folder to store our aligned sequencing files in a folder called `results`:
 
-In addition to restructuring our submit file to queue a new job for each sample, it is also advantageous to have our standard output, log, and error files saved to dedicated folders called "log", "output", and "error" to help keep our output files organized.  Therefore, we need to make these folders in our /home directory prior to submitting our job. We will also create an additional folder to store our aligned sequencing files in a folder called `results`:
-
-
-         mkdir log
-         mkdir output
-         mkdir error
          mkdir results
 
 To store the aligned sequencing files in the `results` folder, we can add the `transfer_output_remaps` feature to our submit file. This feature allows us to specify a name and a path to save our output files in the format of "file1 = path/to/save/file2", where file1 is the origional name of the document and file2 is the name that we want to save the file using. In the example above, we do not change the name of the resulting output files. This feature also helps us keep an organized working space, rather than having all of our resulting sequencing files be saved to our /home directory. 
