@@ -16,7 +16,7 @@ create a folder for our analysis, as well as some sample files.
 ## Install and Prepare BWA
 First, we need to install BWA, also called Burrows-Wheeler Aligner. To do this, we will create and navigate to a new folder in our /home directory called `software`. We will then follow the developer's instructions (https://github.com/lh3/bwa) for using `git clone` to clone the software and then build the tool using `make`. 
 
-         cd ~/tutorial-bwa
+         cd ~/ACE-tutorial-bwa
          cd software
          git clone https://github.com/lh3/bwa.git
          cd bwa
@@ -24,7 +24,7 @@ First, we need to install BWA, also called Burrows-Wheeler Aligner. To do this, 
 
 Next, BWA needs to be added to our PATH variables, to test if the installation worked: 
 
-         export PATH=$PATH:/home/$USER/tutorial-bwa/software/bwa/
+         export PATH=$PATH:/home/$USER/ACE-tutorial-bwa/software/bwa/
 
 To check that BWA has been installed correctly, type `bwa`. You should receive output similar to the following: 
 
@@ -51,7 +51,7 @@ Checking the size of this compressed tarball using `ls -lh bwa.tar.gz` reveals t
 Now that we have installed BWA, we need to download data to analyze. For this tutorial, we will be downloading data used in the Data Carpentry workshop. This data includes both the genome of Escherichia coli (E. coli) and paired-end RNA sequencing reads obtained from a study carried out by Blount et al. published in [PNAS](http://www.pnas.org/content/105/23/7899). Additional information about how the data was modified in preparation for this analysis can be found on the [Data Carpentry's workshop website](https://datacarpentry.org/wrangling-genomics/aio.html).
 
  
-         cd ~/tutorial-bwa
+         cd ~/ACE-tutorial-bwa
          ./download_data.sh
 
 Investigating the size of the downloaded genome by typing:
@@ -64,7 +64,7 @@ reveals the file is 1.4 MB. Therefore, this file should remain in /home and does
 
 Once everything is downloaded, make sure you're still in the `tutorial-bwa` directory. 
 
-         cd ~/tutorial-bwa
+         cd ~/ACE-tutorial-bwa
 
 ## Run a Single Test Job
 
