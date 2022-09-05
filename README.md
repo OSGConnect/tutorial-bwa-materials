@@ -8,7 +8,7 @@ This tutorial focuses on a subset of the [Data Carpentry Genomics workshop curri
 
 ## Get Tutorial Files
 
-Logged into the submit node, we will run the tutorial command, that will 
+Logged into the access point, we will run the tutorial command, that will 
 create a folder for our analysis, as well as some sample files. 
 
          tutorial bwa
@@ -16,7 +16,7 @@ create a folder for our analysis, as well as some sample files.
 ## Install and Prepare BWA
 First, we need to install BWA, also called Burrows-Wheeler Aligner. To do this, we will create and navigate to a new folder in our /home directory called `software`. We will then follow the developer's instructions (https://github.com/lh3/bwa) for using `git clone` to clone the software and then build the tool using `make`. 
 
-         cd ~/ACE-tutorial-bwa
+         cd ~/ACE-bwa
          cd software
          git clone https://github.com/lh3/bwa.git
          cd bwa
@@ -24,7 +24,7 @@ First, we need to install BWA, also called Burrows-Wheeler Aligner. To do this, 
 
 Next, BWA needs to be added to our PATH variables, to test if the installation worked: 
 
-         export PATH=$PATH:/home/$USER/ACE-tutorial-bwa/software/bwa/
+         export PATH=$PATH:/home/$USER/ACE-bwa/software/bwa/
 
 To check that BWA has been installed correctly, type `bwa`. You should receive output similar to the following: 
 
@@ -41,7 +41,7 @@ To check that BWA has been installed correctly, type `bwa`. You should receive o
 
 Now that we have successfully installed `bwa`, we will create a portable compressed tarball of this software so that it is smaller and quicker to transport when we submit our jobs to the OSPool. 
 
-         cd ~/tutorial-bwa/software
+         cd ~/ACE-bwa/software
          tar -czvf bwa.tar.gz bwa
 
 Checking the size of this compressed tarball using `ls -lh bwa.tar.gz` reveals the file is approximately 4MB. The tarball should stay in /home.
@@ -51,7 +51,7 @@ Checking the size of this compressed tarball using `ls -lh bwa.tar.gz` reveals t
 Now that we have installed BWA, we need to download data to analyze. For this tutorial, we will be downloading data used in the Data Carpentry workshop. This data includes both the genome of Escherichia coli (E. coli) and paired-end RNA sequencing reads obtained from a study carried out by Blount et al. published in [PNAS](http://www.pnas.org/content/105/23/7899). Additional information about how the data was modified in preparation for this analysis can be found on the [Data Carpentry's workshop website](https://datacarpentry.org/wrangling-genomics/aio.html).
 
  
-         cd ~/ACE-tutorial-bwa
+         cd ~/ACE-bwa
          ./download_data.sh
 
 Investigating the size of the downloaded genome by typing:
@@ -62,9 +62,9 @@ reveals the file is 1.4 MB. Therefore, this file should remain in /home and does
 
          ls -lh data/trimmed_fastq_small
 
-Once everything is downloaded, make sure you're still in the `tutorial-bwa` directory. 
+Once everything is downloaded, make sure you're still in the `ACE-bwa` directory. 
 
-         cd ~/ACE-tutorial-bwa
+         cd ~/ACE-bwa
 
 ## Run a Single Test Job
 
@@ -148,10 +148,10 @@ To use this option, we first need to create a file with just the sample names/ID
 
 We will save the sample names in a file called `samples.txt`:
 
-         cd ~/tutorial-bwa
+         cd ~/ACE-bwa
          cd data/fastq/
          ls *.fastq | cut -f 1 -d '_' | uniq > samples.txt
-         cd ~/tutorial-bwa
+         cd ~/ACE-bwa
 
 Now, we can create a new submit file called `bwa-alignment.sub` to queue a new job for each sample. To make it simpler to start, you can copy the `bwa-test.sub` file (`cp bwa-test.sub bwa-alignment.sub`) and modify it. 
 
