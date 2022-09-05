@@ -80,8 +80,8 @@ Now that we have all items in our analysis ready, it is time to submit a single 
          transfer_input_files = software/bwa.tar.gz, data/ref_genome/ecoli_rel606.fasta.gz, data/fastq/SRR2584863_1.trim.sub.fastq, data/fastq/SRR2584863_2.trim.sub.fastq
 
          log         = log/bwa_test_job.log
-         output      = errout/bwa_test_job.out
-         error       = errout/bwa_test_job.error
+         output      = log/bwa_test_job.out
+         error       = log/bwa_test_job.err
 
          request_cpus    = 1
          request_memory  = 2GB
@@ -89,7 +89,7 @@ Now that we have all items in our analysis ready, it is time to submit a single 
          
          queue 1
 
-You will notice that the .log, .out, and .error files will be saved to folders called `log` and `errout`. 
+You will notice that the .log, .out, and .err files will be saved to a folder called `log`.
 
 We will call the script for this analysis `bwa-test.sh` and it should contain the following information: 
 
@@ -163,8 +163,8 @@ Now, we can create a new submit file called `bwa-alignment.sub` to queue a new j
          transfer_output_remaps = "$(sample).aligned.sam=results/$(sample).aligned.sam"
 
          log         = log/bwa_$(sample)_job.log
-         output      = output/bwa_$(sample)_job.out
-         error       = error/bwa_$(sample)_job.error
+         output      = log/bwa_$(sample)_job.out
+         error       = log/bwa_$(sample)_job.err
 
          request_cpus    = 1 
          request_memory  = 0.5GB
