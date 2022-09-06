@@ -58,7 +58,8 @@ Investigating the size of the downloaded genome by typing:
 
          ls -lh data/ref_genome/
 
-reveals the file is 1.4 MB. Therefore, this file should remain in /home and does not need to be moved to /public. We should also check the trimmed fastq paired-end read files: 
+reveals the file is 1.4 MB. Therefore, this file should remain in /home and does not need to be moved to /public. We should also check the 
+med fastq paired-end read files: 
 
          ls -lh data/trimmed_fastq_small
 
@@ -106,7 +107,7 @@ We will call the script for this analysis `bwa-test.sh` and it should contain th
          bwa index ecoli_rel606.fasta.gz
 
          echo "Starting bwa alignment for SRR2584863"
-         bwa mem ecoli_rel606.fasta.gz SRR2584863_1.trim.sub.fastq SRR2584863_2.trim.sub.fastq > SRR2584863.aligned.sam
+         bwa mem ecoli_rel606.fasta.gz SRR2584863_1.fastq SRR2584863_2.fastq > SRR2584863.aligned.sam
 
          echo "Done with bwa alignment for SRR2584863!"
 
@@ -159,7 +160,7 @@ Now, we can create a new submit file called `bwa-alignment.sub` to queue a new j
          executable  = bwa-alignment.sh
          arguments   = $(sample)
 
-         transfer_input_files = software/bwa.tar.gz, data/ref_genome/ecoli_rel606.fasta.gz, data/fastq/$(sample)_1.trim.sub.fastq, data/fastq/$(sample)_2.trim.sub.fastq
+         transfer_input_files = software/bwa.tar.gz, data/ref_genome/ecoli_rel606.fasta.gz, data/fastq/$(sample)_1.fastq, data/fastq/$(sample)_2.fastq
          transfer_output_remaps = "$(sample).aligned.sam=results/$(sample).aligned.sam"
 
          log         = log/bwa_$(sample)_job.log
@@ -196,7 +197,7 @@ Once our submit file has been updated, we can update our script to look like and
          bwa index ecoli_rel606.fasta.gz
 
          echo "Starting bwa alignment for ${sample}"
-         bwa mem ecoli_rel606.fasta.gz ${sample}_1.trim.sub.fastq ${sample}_2.trim.sub.fastq > ${sample}.aligned.sam
+         bwa mem ecoli_rel606.fasta.gz ${sample}_1.fastq ${sample}_2.fastq > ${sample}.aligned.sam
 
          echo "Done with bwa alignment for ${sample}!"
 
