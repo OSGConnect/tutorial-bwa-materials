@@ -9,6 +9,8 @@ log         = log/bwa_test_job.log
 output      = log/bwa_test_job.out
 error       = log/bwa_test_job.error
 
+should_transfer_files = YES
+
 request_cpus    = 1
 request_memory  = 2GB
 request_disk    = 1GB
