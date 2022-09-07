@@ -1,10 +1,13 @@
 #!/bin/bash
 
 echo "Define variables" 
+sample=$1
 
 echo "Unpacking software"
+tar -xzf bwa.tar.gz 
 
 echo "Setting PATH for bwa" 
+export PATH=$_CONDOR_SCRATCH_DIR/bwa/:$PATH
 
 echo "Indexing E. coli genome"
 
