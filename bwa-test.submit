@@ -1,18 +1,16 @@
 executable  = 
-# arguments = 
+arguments = 
 
-# need to transfer bwa.tar.gz file, the reference
-# genome, and the trimmed fastq files
+# need to transfer bwa.tar.gz file, the reference genome, and the fastq files
 transfer_input_files = 
+should_transfer_files = YES
 
 log         = log/bwa_test_job.log
 output      = log/bwa_test_job.out
 error       = log/bwa_test_job.error
 
-should_transfer_files = YES
-
 request_cpus    = 1
-request_memory  = 2GB
-request_disk    = 1GB
+request_memory  = 1GB
+request_disk    = 0.5GB
 
 queue 1
