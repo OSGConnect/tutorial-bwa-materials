@@ -5,6 +5,8 @@ arguments =
 transfer_input_files = 
 should_transfer_files = YES
 
+# transfer_output_remaps = 
+
 log         = log/bwa_test_job.log
 output      = log/bwa_test_job.out
 error       = log/bwa_test_job.error
