@@ -50,9 +50,11 @@ Checking the size of this compressed tarball using `ls -lh bwa.tar.gz` reveals t
 
 Now that we have installed BWA, we need to download data to analyze. For this tutorial, we will be downloading data used in the Data Carpentry workshop. This data includes both the genome of Escherichia coli (E. coli) and paired-end RNA sequencing reads obtained from a study carried out by Blount et al. published in [PNAS](http://www.pnas.org/content/105/23/7899). Additional information about how the data was modified in preparation for this analysis can be found on the [Data Carpentry's workshop website](https://datacarpentry.org/wrangling-genomics/aio.html).
 
- 
          cd ~/ACE-bwa
          ./download_data.sh
+
+The files were reduced to ~5,000 lines to reduce analysis time and were renamed to be shorter for teaching purposes.
+
 
 Investigating the size of the downloaded genome by typing:
 
