@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "Define variables" 
+
 echo "Unpacking software"
 
 echo "Setting PATH for bwa" 
