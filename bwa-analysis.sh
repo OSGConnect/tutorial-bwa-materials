@@ -4,7 +4,7 @@ echo "Unpacking software"
 tar -xzf bwa.tar.gz 
 
 echo "Setting PATH for bwa" 
-export PATH=$_CONDOR_SCRATCH_DIR/bwa/:$PATH
+export PATH=$_CONDOR_SCRATCH_DIR:$PATH
 
 echo "Indexing E. coli genome"
 bwa index ecoli_rel606.fasta.gz
