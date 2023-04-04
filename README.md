@@ -8,10 +8,10 @@ This tutorial focuses on a subset of the [Data Carpentry Genomics workshop curri
 
 ## Get Tutorial Files
 
-Logged into the access point, we will run the tutorial command, that will 
+Logged into the access point, we will run a command that will 
 create a folder for our analysis, as well as some sample files. 
 
-         tutorial bwa
+         git clone https://github.com/OSGConnect/tutorial-bwa-materials
 
 ## Install and Prepare BWA
 First, we need to install BWA, also called Burrows-Wheeler Aligner. To do this, we will create and navigate to a new folder in our /home directory called `software`. We will then follow the developer's instructions (https://github.com/lh3/bwa) for using `git clone` to clone the software and then build the tool using `make`. 
